@@ -1,0 +1,53 @@
+// Fecha.java
+public class Fecha {
+    private int mes;
+    private int dia;
+    private int año;
+
+    public Fecha(int mes, int dia, int año) {
+        this.mes = mes;
+        this.dia = dia;
+        this.año = año;
+    }
+
+    public void setMes(int mes) {
+        this.mes = mes;
+    }
+
+    public int getMes() {
+        return mes;
+    }
+
+    public void setDia(int dia) {
+        this.dia = dia;
+    }
+
+    public int getDia() {
+        return dia;
+    }
+
+    public void setAño(int año) {
+        this.año = año;
+    }
+
+    public int getAño() {
+        return año;
+    }
+
+    public String mostrarFecha() {
+        return mes + "/" + dia + "/" + año;
+    }
+}
+
+// PruebaFecha.java
+
+public class PruebaFecha {
+    public static void main(String[] args) {
+        int mes = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el mes:"));
+        int dia = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el día:"));
+        int año = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el año:"));
+
+        Fecha fecha = new Fecha(mes, dia, año);
+        JOptionPane.showMessageDialog(null, "La fecha es: " + fecha.mostrarFecha());
+    }
+}
