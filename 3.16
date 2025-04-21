@@ -1,0 +1,69 @@
+// FrecuenciasCardiacas.java
+public class FrecuenciasCardiacas {
+    private String primerNombre;
+    private String apellido;
+    private int mesNacimiento;
+    private int diaNacimiento;
+    private int añoNacimiento;
+
+    public FrecuenciasCardiacas(String primerNombre, String apellido, int mesNacimiento, int diaNacimiento, int añoNacimiento) {
+        this.primerNombre = primerNombre;
+        this.apellido = apellido;
+        this.mesNacimiento = mesNacimiento;
+        this.diaNacimiento = diaNacimiento;
+        this.añoNacimiento = añoNacimiento;
+    }
+
+    public void setPrimerNombre(String primerNombre) {
+        this.primerNombre = primerNombre;
+    }
+
+    public String getPrimerNombre() {
+        return primerNombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public int calcularEdad() {
+        int añoActual = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+        return añoActual - añoNacimiento;
+    }
+
+    public int calcularFrecuenciaCardiacaMaxima() {
+        return 220 - calcularEdad();
+    }
+
+    public double[] calcularFrecuenciaCardiacaEsperada() {
+        int maxFrecuencia = calcularFrecuenciaCardiacaMaxima();
+        return new double[]{maxFrecuencia * 0.50, maxFrecuencia * 0.85};
+    }
+}
+
+// PruebaFrecuenciasCardiacas.java
+
+
+public class PruebaFrecuenciasCardiacas {
+    public static void main(String[] args) {
+        String primerNombre = JOptionPane.showInputDialog("Ingrese su primer nombre:");
+        String apellido = JOptionPane.showInputDialog("Ingrese su apellido:");
+        int mesNacimiento = Integer.parseInt(JOptionPane.showInputDialog("Ingrese su mes de nacimiento:"));
+        int diaNacimiento = Integer.parseInt(JOptionPane.showInputDialog("Ingrese su día de nacimiento:"));
+        int añoNacimiento = Integer.parseInt(JOptionPane.showInputDialog("Ingrese su año de nacimiento:"));
+
+        FrecuenciasCardiacas persona = new FrecuenciasCardiacas(primerNombre, apellido, mesNacimiento, diaNacimiento, añoNacimiento);
+        int edad = persona.calcularEdad();
+        int frecuenciaMaxima = persona.calcularFrecuenciaCardiacaMaxima();
+        double[] frecuenciaEsperada = persona.calcularFrecuenciaCardiacaEsperada();
+
+        String mensaje = String.format("Nombre: %s %s\nEdad: %d\nFrecuencia cardiaca máxima: %d\nFrecuencia cardiaca esperada: %.2f - %.2f",
+                persona.getPrimerNombre(), persona.getApellido(), edad, frecuenciaMaxima, frecuenciaEsperada[0], frecuenciaEsperada[1]);
+
+        JOptionPane.showMessageDialog(null, mensaje);
+    }
+}
