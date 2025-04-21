@@ -1,0 +1,142 @@
+// PerfilMedico.java
+public class PerfilMedico {
+    private String primerNombre;
+    private String apellido;
+    private String sexo;
+    private int diaNacimiento;
+    private int mesNacimiento;
+    private int añoNacimiento;
+    private double altura; // en centímetros
+    private double peso;   // en kilogramos
+
+    public PerfilMedico(String primerNombre, String apellido, String sexo, int diaNacimiento, int mesNacimiento, int añoNacimiento, double altura, double peso) {
+        this.primerNombre = primerNombre;
+        this.apellido = apellido;
+        this.sexo = sexo;
+        this.diaNacimiento = diaNacimiento;
+        this.mesNacimiento = mesNacimiento;
+        this.añoNacimiento = añoNacimiento;
+        this.altura = altura;
+        this.peso = peso;
+    }
+
+    public void setPrimerNombre(String primerNombre) {
+        this.primerNombre = primerNombre;
+    }
+
+    public String getPrimerNombre() {
+        return primerNombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setDiaNacimiento(int diaNacimiento) {
+        this.diaNacimiento = diaNacimiento;
+    }
+
+    public int getDiaNacimiento() {
+        return diaNacimiento;
+    }
+
+    public void setMesNacimiento(int mesNacimiento) {
+        this.mesNacimiento = mesNacimiento;
+    }
+
+    public int getMesNacimiento() {
+        return mesNacimiento;
+    }
+
+    public void setAñoNacimiento(int añoNacimiento) {
+        this.añoNacimiento = añoNacimiento;
+    }
+
+    public int getAñoNacimiento() {
+        return añoNacimiento;
+    }
+
+    public void setAltura(double altura) {
+        this.altura = altura;
+    }
+
+    public double getAltura() {
+        return altura;
+    }
+
+    public void setPeso(double peso) {
+        this.peso = peso;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public int calcularEdad() {
+        int añoActual = java.util.Calendar.getInstance().get(java.util.Calendar.YEAR);
+        return añoActual - añoNacimiento;
+    }
+
+    public int calcularFrecuenciaCardiacaMaxima() {
+        return 220 - calcularEdad();
+    }
+
+    public double[] calcularFrecuenciaCardiacaEsperada() {
+        int maxFrecuencia = calcularFrecuenciaCardiacaMaxima();
+        return new double[]{maxFrecuencia * 0.50, maxFrecuencia * 0.85};
+    }
+
+    public double calcularIMC() {
+        double alturaEnMetros = altura / 100; // Convertir altura a metros
+        return peso / (alturaEnMetros * alturaEnMetros);
+    }
+
+    public String clasificarIMC() {
+        double imc = calcularIMC();
+        if (imc < 18.5) {
+            return "Bajo peso";
+        } else if (imc < 24.9) {
+            return "Normal";
+        } else if (imc < 29.9) {
+            return "Sobrepeso";
+        } else {
+            return "Obeso";
+        }
+    }
+}
+
+// PruebaPerfilMedico.java
+
+
+public class PruebaPerfilMedico {
+    public static void main(String[] args) {
+        String primerNombre = JOptionPane.showInputDialog("Ingrese su primer nombre:");
+        String apellido = JOptionPane.showInputDialog("Ingrese su apellido:");
+        String sexo = JOptionPane.showInputDialog("Ingrese su sexo:");
+        int diaNacimiento = Integer.parseInt(JOptionPane.showInputDialog("Ingrese su día de nacimiento:"));
+        int mesNacimiento = Integer.parseInt(JOptionPane.showInputDialog("Ingrese su mes de nacimiento:"));
+        int añoNacimiento = Integer.parseInt(JOptionPane.showInputDialog("Ingrese su año de nacimiento:"));
+        double altura = Double.parseDouble(JOptionPane.showInputDialog("Ingrese su altura en centímetros:"));
+        double peso = Double.parseDouble(JOptionPane.showInputDialog("Ingrese su peso en kilogramos:"));
+
+        PerfilMedico perfil = new PerfilMedico(primerNombre, apellido, sexo, diaNacimiento, mesNacimiento, añoNacimiento, altura, peso);
+        
+        int edad = perfil.calcularEdad();
+        double imc = perfil.calcularIMC();
+        String clasificacionIMC = perfil.clasificarIMC();
+        int frecuenciaMaxima = perfil.calcularFrecuenciaCardiacaMaxima();
+        double[] frecuenciaEsperada = perfil.calcularFrecuenciaCardiacaEsperada();
+
+        String mensaje = String.format
